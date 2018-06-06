@@ -22,12 +22,12 @@ namespace TurnSyncModule
 		public bool bEscape;
 
         /// <summary>
-        /// ¹Ø¼üÖ¡Ê±¼ä¼ä¸ô
+        /// å…³é”®å¸§æ—¶é—´é—´éš”
         /// </summary>
 		public uint TurnDelta = 50u;
 
         /// <summary>
-        /// ×èÈûµÄÖ¡µÄÊıÁ¿
+        /// é˜»å¡çš„å¸§çš„æ•°é‡
         /// </summary>
 		private uint EndBlockWaitNum;
 		public uint PreActTurns = 5u;
@@ -35,7 +35,7 @@ namespace TurnSyncModule
 		public int nDriftFactor = 16;
 
         /// <summary>
-        /// ·şÎñÆ÷µÄÑÓ³ÙÖ¡Êı£¿
+        /// æœåŠ¡å™¨çš„å»¶è¿Ÿå¸§æ•°
         /// </summary>
 		public uint SvrTurnLater;
 
@@ -46,7 +46,7 @@ namespace TurnSyncModule
 		private uint ServerSeed = 12345u;
 
         /// <summary>
-        /// ÆğÊ¼Ö¡Ê±¼ä
+        /// èµ·å§‹å¸§æ—¶é—´
         /// </summary>
 		public float startTurnTime;
 
@@ -56,12 +56,12 @@ namespace TurnSyncModule
 		private byte m_turnSpeed = 1;
 
         /// <summary>
-        /// µ±Ç°°üÑÓ³Ù
+        /// å½“å‰åŒ…å»¶è¿Ÿ
         /// </summary>
 		private int _CurPkgDelay;
 
         /// <summary>
-        /// Æ½¾ùÑÓ³Ù
+        /// å¹³å‡å»¶è¿Ÿ
         /// </summary>
 		private int AvgTurnDelay;
         private float fLocalRunTime = 0.0f;
@@ -77,7 +77,7 @@ namespace TurnSyncModule
 		}
 
         /// <summary>
-        /// ×îºóµÄÂß¼­Ö¡£¬¸ÃÊı¾İÓÉÖ¡´°¿ÚÄ£¿é¸ºÔğĞŞ¸Ä£¬ÊÇÖğÒ»µİÔöµÄ£¬²»»áÌøÔ¾Ê½ÍÆ½ø
+        /// æœ€åçš„é€»è¾‘å¸§ï¼Œè¯¥æ•°æ®ç”±å¸§çª—å£æ¨¡å—è´Ÿè´£ä¿®æ”¹ï¼Œæ˜¯é€ä¸€é€’å¢çš„ï¼Œä¸ä¼šè·³è·ƒå¼æ¨è¿›
         /// </summary>
 		public uint EndTurnNum
 		{
@@ -85,7 +85,7 @@ namespace TurnSyncModule
 			private set;
 		}
 
-        //¶ÏÏßÖØÁ¬Ê¹ÓÃ£¿
+        //æ–­çº¿é‡è¿ä½¿ç”¨
         public uint BlockTurnWaitNum
         {
             get { return EndBlockWaitNum; }
@@ -169,7 +169,7 @@ namespace TurnSyncModule
             commandQueue.Clear();
         }
 
-        //ÕâÀïµÄÖ¡ºÅÊÇÓĞĞòµÄ£¬ÍêÕûµÄ£¬Öğ²½µİÔöµÄ£¬Ö»ÊÇÖ¡µÄ¼ä¸ôÊ±¼äÓÉÓÚÑÓ³ÙµÄ´æÔÚ¶ø²»È·¶¨
+        //å¸§å·æ˜¯æœ‰åºçš„ï¼Œå®Œæ•´çš„ï¼Œé€æ­¥é€’å¢çš„ï¼Œåªæ˜¯å¸§çš„é—´éš”æ—¶é—´ç”±äºå»¶è¿Ÿè€Œä¸ç¡®å®š
 		public bool SetKeyTurnIndex(uint svrNum, bool noIndexChk = false)
 		{
             if (noIndexChk || svrNum > SvrTurnIndex)
@@ -265,8 +265,6 @@ namespace TurnSyncModule
 			backstepTurnCounter = 0u;
 		}
 
-        //¼ÆËãÆô¶¯ºóµÄºóÍËÊ±¼ä£¿
-
 		public void CalcBackstepTimeSinceStart(uint inSvrNum)
 		{
 			if (backstepTurnCounter == inSvrNum)
@@ -274,11 +272,11 @@ namespace TurnSyncModule
 				return;
 			}
 
-            //Õ½¶·¿ªÊ¼ºóµÄ·şÎñÆ÷Ê±¼ä
+            //æˆ˜æ–—å¼€å§‹åçš„æœåŠ¡å™¨æ—¶é—´
 			ulong serverTime = (ulong)inSvrNum * (ulong)SvrTurnDelta;
             float delta = Time.realtimeSinceStartup - serverTime * 0.001f;
             float serverTimeGap = delta - startTurnTime;
-            //ÍøÂçÕı³£µÄÇé¿öÏÂ£¬serverTimeGap ÊÇĞ¡ÓÚ 0 µÄ
+            //ç½‘ç»œæ­£å¸¸çš„æƒ…å†µä¸‹ï¼ŒserverTimeGap æ˜¯å°äº 0 çš„
             if (serverTimeGap < 0f)
 			{
                 startTurnTime = delta;
@@ -294,7 +292,7 @@ namespace TurnSyncModule
         }
 
         /// <summary>
-        /// ¸Ã·½·¨Ã¿¸öäÖÈ¾Ö¡»áÖ´ĞĞÒ»´Î£¬µ«ÊÇ»áÒÔÂß¼­Ö¡¼ä¸ô£¬¾­¹ıÆ½¾ùÑÓ³Ù¼ÆËã£¬³ö·¢Âß¼­Ö¡µÄÖ´ĞĞ
+        ///
         /// </summary>
         /// <param name="bLocalTimeDriver"></param>
         private void UpdateMultiTurn(bool bLocalTimeDriver = false)
@@ -316,12 +314,12 @@ namespace TurnSyncModule
                 rt = fLocalRunTime + startTurnTime;
             }
 
-            //Ö¡Í¬²½¿ªÊ¼ºó¾­¹ıÁË¶àÉÙÊ±¼ä¡£nowtime ÊÇäÖÈ¾Ö¡¼ä¸ô£¬Ğ¡ÓÚÒ»¸öÂß¼­Ö¡
+            //å¸§åŒæ­¥å¼€å§‹åç»è¿‡äº†å¤šå°‘æ—¶é—´ã€‚nowtime æ˜¯æ¸²æŸ“å¸§é—´éš”ï¼Œå°äºä¸€ä¸ªé€»è¾‘å¸§
             long nowTime = (long)((rt - startTurnTime) * 1000f);
-            //Ä³Ò»¸öÂß¼­Ö¡ÑÓ³ÙÊ±¼ä¡£¾ÙÀı£¬µÚÒ»¸öÂß¼­Ö¡µ½À´Ö®Ç°£¬nDelayMsÊÇĞ¡ÓÚÁãµÄ£¬Ğ¡ÓÚÁãµÄÊıÑ§ÒâÒåÊÇ³¬Ô½ÑÓ³Ù£¬Êµ¼Ê²¢²»´æÔÚ£¬´ËÊ±Ö»ÄÜÔÚÂß¼­Ö¡·¶Î§ÄÚ£¬
-            //ËµÃ÷»¹Ã»ÓĞÑÓ³Ù¡£Ëæ×ÅÊ±¼äµÄÍÆ½ø£¬nowTime »áÔ½À´Ô½´ó£¬Ö±µ½³¬¹ıÂß¼­Ö¡µÄÊ±³¤£¬ÑÓ³ÙÔÚ30msÄÚ£¬Ôò±»ÈÏÎªÊÇÃ»ÓĞÊ±ÑÓµÄ
+            //æŸä¸€ä¸ªé€»è¾‘å¸§å»¶è¿Ÿæ—¶é—´ã€‚ä¸¾ä¾‹ï¼Œç¬¬ä¸€ä¸ªé€»è¾‘å¸§åˆ°æ¥ä¹‹å‰ï¼ŒnDelayMsæ˜¯å°äºé›¶çš„ï¼Œå°äºé›¶çš„æ•°å­¦æ„ä¹‰æ˜¯è¶…è¶Šå»¶è¿Ÿï¼Œå®é™…å¹¶ä¸å­˜åœ¨ï¼Œæ­¤æ—¶åªèƒ½åœ¨é€»è¾‘å¸§èŒƒå›´å†…ï¼Œ
+            //è¯´æ˜è¿˜æ²¡æœ‰å»¶è¿Ÿã€‚éšç€æ—¶é—´çš„æ¨è¿›ï¼ŒnowTime ä¼šè¶Šæ¥è¶Šå¤§ï¼Œç›´åˆ°è¶…è¿‡é€»è¾‘å¸§çš„æ—¶é•¿ï¼Œå»¶è¿Ÿåœ¨30mså†…ï¼Œåˆ™è¢«è®¤ä¸ºæ˜¯æ²¡æœ‰æ—¶å»¶çš„
             long nDelayMs = nowTime - (long)((SvrTurnIndex + 1u) * SvrTurnDelta);
-            //Æ½¾ùÑÓ³Ù£¨ÒÔ30Ö¡¼ÆËã£©
+            //å¹³å‡å»¶è¿Ÿï¼ˆä»¥30å¸§è®¡ç®—ï¼‰
             int smoothDelay = CalculateJitterDelay(nDelayMs);            
             nowTime *= (long)TurnSpeed;
 			while (i > 0)
@@ -329,11 +327,11 @@ namespace TurnSyncModule
 				long lastTime = (long)(CurTurnNum * TurnDelta);
                 long deltaTime = nowTime - lastTime;
                 deltaTime -=  (long)smoothDelay;
-                //ÕâÀïÊÇ´¦ÀíºËĞÄ£¬Èç¹û deltaTime Ëæ×ÅäÖÈ¾Ö¡µÄÔö³¤¶øÔö³¤£¬µ±ËûĞ¡ÓÚÒ»¸öÂß¼­Ö¡Ê±£¬Ôò²»×öÈÎºÎ´¦Àí£¬µ±Ëû´óÓÚÒ»¸öÂß¼­Ö¡Ê±£¬Ôò´¥·¢Ò»´ÎÂß¼­Ö¡´¦Àí
+                //è¿™é‡Œæ˜¯å¤„ç†æ ¸å¿ƒï¼Œå¦‚æœ deltaTime éšç€æ¸²æŸ“å¸§çš„å¢é•¿è€Œå¢é•¿ï¼Œå½“ä»–å°äºä¸€ä¸ªé€»è¾‘å¸§æ—¶ï¼Œåˆ™ä¸åšä»»ä½•å¤„ç†ï¼Œå½“ä»–å¤§äºä¸€ä¸ªé€»è¾‘å¸§æ—¶ï¼Œåˆ™è§¦å‘ä¸€æ¬¡é€»è¾‘å¸§å¤„ç†
                 //
                 if (deltaTime >= (long)TurnDelta)
 				{
-                    //¼ÙÉèÒ»Ö±Ã»ÓĞÊÕµ½ĞÂµÄÂß¼­Ö¡£¬ÔòÃ¿´Î¶¼»áÖ´ĞĞµ½ÕâÀï£¨Ê®ÓĞ°Ë¾ÅÊÇÍøÂç³öÁËÎÊÌâ£©
+                    //å‡è®¾ä¸€ç›´æ²¡æœ‰æ”¶åˆ°æ–°çš„é€»è¾‘å¸§ï¼Œåˆ™æ¯æ¬¡éƒ½ä¼šæ‰§è¡Œåˆ°è¿™é‡Œï¼ˆåæœ‰å…«ä¹æ˜¯ç½‘ç»œå‡ºäº†é—®é¢˜ï¼‰
 					if (CurTurnNum >= EndTurnNum)
 					{
 						EndBlockWaitNum += 1u;
@@ -345,7 +343,7 @@ namespace TurnSyncModule
 						CurTurnNum += 1u;
                         LogicTurnTick += (ulong)TurnDelta;
 
-                        //ÕâÀïºÍ´«ÆæµÄÃ²ËÆÒ»ÖÂ£¬¶¼ÊÇÏÈÖ´ĞĞÃüÁî£¬ÔÚË¢ĞÂÓÎÏ·Âß¼­
+                        //è¿™é‡Œå’Œä¼ å¥‡çš„è²Œä¼¼ä¸€è‡´ï¼Œéƒ½æ˜¯å…ˆæ‰§è¡Œå‘½ä»¤ï¼Œåœ¨åˆ·æ–°æ¸¸æˆé€»è¾‘
 						while (commandQueue.Count > 0)
 						{
 							ITurnCommand TurnCommand = commandQueue.Peek();
