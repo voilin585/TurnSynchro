@@ -1,0 +1,61 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class ConstEnum
+{
+    public enum FRAME_SYNC_TYPE : sbyte
+    {
+        FRAME_SYNC_T_C2C = 1,
+        FRAME_SYNC_T_C2S = 2,
+    };
+
+    public enum FRAMECMD_C2C : sbyte
+    {
+        FRAME_CMD_INVALID = 0,
+        FRAME_CMD_PLAYERMOVE = 1,
+        FRAME_CMD_PLAYERMOVEDIRECTION = 2,
+        FRAME_CMD_PLAYERSTOPMOVE = 3,
+        FRAME_CMD_ATTACKPOSITION = 4,
+        FRAME_CMD_ATTACKACTOR = 5,
+        FRAME_CMD_LEARNSKILL = 6,
+        FRAME_CMD_USECURVETRACKSKILL = 7,
+        FRAME_CMD_USECOMMONATTACK = 8,
+        FRAME_CMD_SWITCHAOUTAI = 9,
+        FRAME_CMD_SWITCHCAPTAIN = 10,
+        FRAME_CMD_SWITCHSUPERKILLER = 11,
+        FRAME_CMD_SWITCHGODMODE = 12,
+        FRAME_CMD_LEARNTALENT = 13,
+        FRAME_CMD_TESTCOMMANDDELAY = 14,
+        FRAME_CMD_PLAYERRUNAWAY = 15,
+        FRAME_CMD_PLAYERDISCONNECT = 16,
+        FRAME_CMD_PLAYERRECONNECT = 17,
+        FRAME_CMD_PLAYATTACKTARGETMODE = 18,
+        FRAME_CMD_SVRNTFCHGKFRAMELATER = 19,
+        FRAME_CMD_ASSISTSTATECHG = 20,
+        FRAME_CMD_CHGAUTOAI = 21,
+        FRAME_CMD_PLAYER_BUY_EQUIP = 22,
+        FRAME_CMD_PLAYER_SELL_EQUIP = 23,
+        FRAME_CMD_PLAYER_ADD_GOLD_COIN_IN_BATTLE = 24,
+        FRAME_CMD_SET_SKILL_LEVEL = 25,
+        FRAME_CMD_PLAYCOMMONATTACKTMODE = 26,
+        FRAME_CMD_LOCKATTACKTARGET = 27,
+        FRAME_CMD_Signal_Btn_Position = 28,
+        FRAME_CMD_Signal_MiniMap_Position = 29,
+        FRAME_CMD_Signal_MiniMap_Target = 30,
+        FRAME_CMD_CHANGETARGETINGMODE = 31,
+        FRAME_CMD_USEEQUIPSKILL = 32,
+        FRAME_CMD_SURRENDER_RESULT = 33,
+        FRAME_CMD_NOTIFY_VERSION_TOKEN = 34,
+        FRAME_CMD_EXECUTION_GAP = 35,
+        _count = 36,
+    };
+
+    public enum FRAMECMD_C2S : sbyte
+    {
+        CSSYNC_CMD_USEOBJECTIVESKILL = 0,
+        CSSYNC_CMD_USEDIRECTIONALSKILL = 1,
+        CSSYNC_CMD_USEPOSITIONSKILL = 2,
+        _count = 3,
+    };
+}
