@@ -1,8 +1,8 @@
 using System;
 
-namespace TurnSyncModule
+namespace FrameSyncModule
 {
-	public interface ITurnCommand
+	public interface IFrameCommand
 	{
         // C2C or C2S
         byte syncType
@@ -23,7 +23,7 @@ namespace TurnSyncModule
 			set;
 		}
 
-		uint TurnNum
+		uint frameNum
 		{
 			get;
 			set;
